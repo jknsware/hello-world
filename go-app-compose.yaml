@@ -6,5 +6,5 @@ services:
       dockerfile: Dockerfile
       context: .
     environment:
-      - VIRTUAL_HOST=jknsware.com
-      - LETSENCRYPT_HOST=jknsware.com
+      - VIRTUAL_HOST=hello-world.jknsware.com
+      - LETSENCRYPT_HOST=hello-world.jknsware.com
