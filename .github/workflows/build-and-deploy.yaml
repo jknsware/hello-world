@@ -58,14 +58,15 @@ jobs:
           # passphrase: ${{ secrets.PASSPHRASE }}
           envs: IMAGE_NAME,REGISTRY,{{ secrets.DIGITALOCEAN_ACCESS_TOKEN }},GITHUB_SHA
           script: |
+            # Git the repo and cd into it
+            git clone https://github.com/jknsware/hello-world.git
+            cd hello-world
             # Login to registry
             docker login -u ${{ secrets.DIGITALOCEAN_ACCESS_TOKEN }} -p ${{ secrets.DIGITALOCEAN_ACCESS_TOKEN }} registry.digitalocean.com
-            # Stop running container
-            docker stop $(echo $IMAGE_NAME)
-            # Remove old container
-            docker rm $(echo $IMAGE_NAME)
+            # Stop and remove all running containers
+            docker ps -aq | xargs docker stop | xargs docker rm
+            # Start the nginx-proxy
+            docker compose -f nginx-proxy-compose.yaml up -d
+            # Start the hello-world container
+            docker compose -f go-app-compose.yaml up -d
             # Run a new container from a new image
-            docker run -d \
-            --restart always \
-            --name $(echo $IMAGE_NAME) \
-            $(echo $REGISTRY)/$(echo $IMAGE_NAME):$(echo $GITHUB_SHA | head -c7)
