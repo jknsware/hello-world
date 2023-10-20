@@ -55,7 +55,6 @@ jobs:
           host: ${{ secrets.HOST }}
           username: ${{ secrets.USERNAME }}
           key: ${{ secrets.SSHKEY }}
-          # passphrase: ${{ secrets.PASSPHRASE }}
           envs: IMAGE_NAME,REGISTRY,{{ secrets.DIGITALOCEAN_ACCESS_TOKEN }},GITHUB_SHA
           script: |
             # Git the repo and cd into it
@@ -63,10 +62,18 @@ jobs:
             cd hello-world
             # Login to registry
             docker login -u ${{ secrets.DIGITALOCEAN_ACCESS_TOKEN }} -p ${{ secrets.DIGITALOCEAN_ACCESS_TOKEN }} registry.digitalocean.com
-            # Stop and remove all running containers
-            docker ps -aq | xargs docker stop | xargs docker rm
+            # Stop hello-world container
+            docker stop $(echo $IMAGE_NAME)
+            # Remove hello-world container
+            docker rm $(echo $IMAGE_NAME)
+            # Stop and remove the nginx-proxy
+            docker compose -f nginx-proxy-compose.yaml down
             # Start the nginx-proxy
             docker compose -f nginx-proxy-compose.yaml up -d
-            # Start the hello-world container
-            docker compose -f go-app-compose.yaml up -d
             # Run a new container from a new image
+            docker run -d \
+            --restart always \
+            --name $(echo $IMAGE_NAME) \
+            --env VIRTUAL_HOST=hello-world.jknsware.com \ 
+            --env LETSENCRYPT_HOST=hello-world.jknsware.com \
+            $(echo $REGISTRY)/$(echo $IMAGE_NAME):$(echo $GITHUB_SHA | head -c7)
