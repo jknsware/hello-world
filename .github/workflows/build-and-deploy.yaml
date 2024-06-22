@@ -76,6 +76,6 @@ jobs:
             docker run -d \
             --restart always \
             --name $(echo $IMAGE_NAME) \
-            --env VIRTUAL_HOST=hello-world.jknsware.com \ 
-            --env LETSENCRYPT_HOST=hello-world.jknsware.com \
+            --env VIRTUAL_HOST=jknsware.com \ 
+            --env LETSENCRYPT_HOST=jknsware.com \
             $(echo $REGISTRY)/$(echo $IMAGE_NAME):$(echo $GITHUB_SHA | head -c7)
