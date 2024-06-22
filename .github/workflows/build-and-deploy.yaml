@@ -57,6 +57,8 @@ jobs:
           key: ${{ secrets.SSHKEY }}
           envs: IMAGE_NAME,REGISTRY,{{ secrets.DIGITALOCEAN_ACCESS_TOKEN }},GITHUB_SHA
           script: |
+            # Delete previous version of cloned repo
+            rm -rf hello-world
             # Git the repo and cd into it
             git clone https://github.com/jknsware/hello-world.git
             cd hello-world
