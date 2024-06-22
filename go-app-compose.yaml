@@ -5,4 +5,4 @@ services:
     image: registry.digitalocean.com/jknsware-hello-world/hello-world
     environment:
       - VIRTUAL_HOST=jknsware.com
-      - LETSENCRYPT_HOST=jknsware.com
+      - LETSENCRYPT_HOST=*.jknsware.com
