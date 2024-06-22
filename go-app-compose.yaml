@@ -4,5 +4,5 @@ services:
     restart: always
     image: registry.digitalocean.com/jknsware-hello-world/hello-world
     environment:
-      - VIRTUAL_HOST=jknsware.com
+      - VIRTUAL_HOST=hello-world.jknsware.com
       - LETSENCRYPT_HOST=*.jknsware.com
