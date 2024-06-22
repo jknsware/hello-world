@@ -1,5 +1,5 @@
 variable "do_token" {
-  description = "The DigitalOcean PAT. Value saved in Terraform Cloud variables."
+  description = "The DigitalOcean PAT. Value saved in LastPass."
 }
 
 variable "image" {
@@ -11,7 +11,7 @@ variable "name" {
 }
 
 variable "pvt_key" {
-  description = "My SSH private key. Value saved in Terraform Cloud variables."
+  description = "My SSH private key. Value saved in LastPass."
 }
 
 variable "region" {
