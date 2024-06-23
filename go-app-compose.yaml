@@ -6,3 +6,5 @@ services:
     environment:
       - VIRTUAL_HOST=hello-world.jknsware.com
       - LETSENCRYPT_HOST=hello-world.jknsware.com
+    networks:
+      - hello-world_default
