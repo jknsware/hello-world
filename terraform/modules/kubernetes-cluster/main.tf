@@ -12,8 +12,8 @@ provider "digitalocean" {
 }
 
 resource "digitalocean_kubernetes_cluster" "cluster" {
-  name   = var.name
-  region = var.region
+  name    = var.name
+  region  = var.region
   version = var.k8s_version
 
   node_pool {
@@ -21,4 +21,6 @@ resource "digitalocean_kubernetes_cluster" "cluster" {
     size       = var.node_pool_size
     node_count = var.node_pool_count
   }
+
+  registry_integration = var.registry_integration
 }
