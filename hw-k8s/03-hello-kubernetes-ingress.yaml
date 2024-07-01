@@ -1,0 +1,44 @@
+apiVersion: networking.k8s.io/v1
+kind: IngressClass
+metadata:
+  name: hello-kubernetes-ingress
+spec:
+  controller: k8s.io/ingress-nginx
+
+---
+
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: hello-kubernetes-ingress
+  annotations:
+    kubernetes.io/ingress.class: nginx
+    cert-manager.io/cluster-issuer: letsencrypt-prod
+spec:
+  ingressClassName: nginx
+  tls:
+    - hosts:
+      - hw1.jknsware.com
+      - hw2.jknsware.com
+      secretName: hello-kubernetes-tls
+  rules:
+  - host: "hw1.jknsware.com"
+    http:
+      paths:
+      - pathType: Prefix
+        path: "/"
+        backend:
+          service:
+            name: hello-kubernetes-first
+            port:
+              number: 80
+  - host: "hw2.jknsware.com"
+    http:
+      paths:
+      - pathType: Prefix
+        path: "/"
+        backend:
+          service:
+            name: hello-kubernetes-second
+            port:
+              number: 80
