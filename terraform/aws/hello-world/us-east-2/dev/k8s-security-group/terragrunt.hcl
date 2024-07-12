@@ -3,9 +3,9 @@ terraform {
 }
 
 generate "provider" {
-  path = "provider.tf"
+  path      = "provider.tf"
   if_exists = "overwrite_terragrunt"
-  contents = <<EOF
+  contents  = <<EOF
 provider "aws" {
   region = "us-east-2"
 }
@@ -15,9 +15,9 @@ EOF
 inputs = {
   name        = "kubernetes-access"
   description = "Security group for Kubernetes access."
-  vpc_id      = "vpc-0f989f76aacf3366d"
+  vpc_id      = "vpc-01bbb5f4ed11e04b9"
 
-  ingress_cidr_blocks      = ["10.0.0.0/16"]
+  ingress_cidr_blocks = ["172.16.0.0/16"]
   ingress_with_cidr_blocks = [
     {
       from_port   = 22
@@ -25,10 +25,24 @@ inputs = {
       protocol    = "tcp"
       description = "SSH access"
       cidr_blocks = "24.28.2.111/32"
+    },
+    {
+      from_port   = 0
+      to_port     = 65535
+      protocol    = "all"
+      description = "VPC inbound"
+      cidr_blocks = "172.16.0.0/16"
     }
   ]
-  
-  egress_cidr_blocks = [
-    "0.0.0.0/0"
+
+  egress_cidr_blocks = ["0.0.0.0/0"]
+  egress_with_cidr_blocks = [
+    {
+      from_port   = 0
+      to_port     = 65535
+      protocol    = "all"
+      description = "All outbound"
+      cidr_blocks = "0.0.0.0/0"
+    }
   ]
 }
