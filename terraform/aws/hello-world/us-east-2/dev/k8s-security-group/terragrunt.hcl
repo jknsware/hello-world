@@ -27,11 +27,25 @@ inputs = {
       cidr_blocks = "24.28.2.111/32"
     },
     {
+      from_port   = 22
+      to_port     = 22
+      protocol    = "tcp"
+      description = "SSH access"
+      cidr_blocks = "104.6.34.9/32"
+    },
+    {
       from_port   = 80
       to_port     = 80
       protocol    = "tcp"
       description = "LB HTTP access"
       cidr_blocks = "24.28.2.111/32"
+    },
+    {
+      from_port   = 80
+      to_port     = 80
+      protocol    = "tcp"
+      description = "LB HTTP access"
+      cidr_blocks = "104.6.34.9/32"
     },
     {
       from_port   = 0
