@@ -30,8 +30,15 @@ inputs = {
       from_port   = 22
       to_port     = 22
       protocol    = "tcp"
-      description = "SSH access"
+      description = "SSH access - Discovery"
       cidr_blocks = "104.6.34.9/32"
+    },
+    {
+      from_port   = 22
+      to_port     = 22
+      protocol    = "tcp"
+      description = "SSH access  - Starbucks"
+      cidr_blocks = "72.182.105.79/32"
     },
     {
       from_port   = 80
@@ -44,8 +51,15 @@ inputs = {
       from_port   = 80
       to_port     = 80
       protocol    = "tcp"
-      description = "LB HTTP access"
+      description = "LB HTTP access - Discovery"
       cidr_blocks = "104.6.34.9/32"
+    },
+    {
+      from_port   = 80
+      to_port     = 80
+      protocol    = "tcp"
+      description = "LB HTTP access - Starbucks"
+      cidr_blocks = "72.182.105.79/32"
     },
     {
       from_port   = 0
